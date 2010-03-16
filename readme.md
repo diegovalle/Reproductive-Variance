@@ -6,11 +6,11 @@ Requirements
 
 1. You'll need to download 3 files from the [world values survey website](http://www.wvsevsdb.com/wvs/WVSData.jsp?Idioma=I) and place them in the "data" directory. Make sure the files you download are in __STATA__ format
 
-  * WVS 2000 official file compressed in ZIP format (SPSS=6.3Mb, SAS=7.1Mb, STATA=7.1Mb)
+  WVS 2000 official file compressed in ZIP format (SPSS=6.3Mb, SAS=7.1Mb, STATA=7.1Mb)
   
-  * WVS2005-List A official file v.20090901 compressed in ZIP format (SPSS=8.6Mb, SAS=14.6Mb, STATA=7.6Mb)
+  WVS2005-List A official file v.20090901 compressed in ZIP format (SPSS=8.6Mb, SAS=14.6Mb, STATA=7.6Mb)
   
-  * WVS2005-List B official file v.20090901 compressed in ZIP format (SPSS=1.8Mb, SAS=2.8Mb, STATA=1.5Mb)
+  WVS2005-List B official file v.20090901 compressed in ZIP format (SPSS=1.8Mb, SAS=2.8Mb, STATA=1.5Mb)
 
   You'll have to register to download them. Once downloaded unzip them into the same directory.
 
