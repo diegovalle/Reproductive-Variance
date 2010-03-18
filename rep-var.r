@@ -28,6 +28,8 @@ file2000 <- "data/num-child2000.csv"
 file2005a <- "data/num-child2005.csv"
 file2005b <- "data/num-child2005b.csv"
 
+#Make sure you downloaded the data files from the world values survey
+#read readme.md
 if(!file.exists(file2000) |
    !file.exists(file2005a) |
    !file.exists(file2005b)) {
@@ -44,7 +46,8 @@ rm(wvs2000, wvs2005, wvs2005b)
 #The upperbound for the number of kids is 8, it seems to me
 #reasonable to assume men on average have more kids because of
 #biological constraints
-wvs[wvs$sex == "male" & wvs$numchilds == 8,]$numchilds <- 9
+#Now if I only knew where to get data to estimate the difference
+#wvs[wvs$sex == "male" & wvs$numchilds == 8,]$numchilds <- 8.2
 
 
 qplot(data = wvs, y = age, x = factor(numchilds), geom = "boxplot")
@@ -78,7 +81,7 @@ densityChilds <- function(df, name) {
      opts(title = name)
 }
 
-#doesn't take into account population, but it doesn't
+#the mean ratio doesn't take into account population, but it doesn't
 #significantly affect the result
 wvs.old <- subset(wvs, age > old)
 worldvar <- ddply(wvs.old, .(sex), function(df) var(df$numchilds))
@@ -132,7 +135,7 @@ ggplot(world.map, aes(long, lat)) +
                               midpoint = 1) +
          opts(panel.background = theme_rect(fill = "#e0f2ff",
                                             colour = "white")) +
-         opts(title = "Male / Female reproductive variance (alpha males = blue, alpha females = red)")
+         opts(title = "Male / Female reproductive variance (alpha males = blue, alpha females = red, white = equal)")
 dev.print(png, file="output/rep-var-map.png", height=550, width=960)
 
 #What are the errors? Bootstraping to the rescue!
