@@ -1,9 +1,22 @@
 Reproductive Variance Around the World
 =======================================
 
+Because of biological constraints the maximum number of children women can have is lower than that of men. Furthermore, human societies have many different mating arrangements: monogamy, serial monogamy, polygamy and in rare cases polyandry. All this means there should differences in the distributions of number of children women and men have. One simple way of measuring the difference would be the ratio of male variance in the number children had to that of females.
+
+
+Possible Problems
+-----------------
+
+- The upper bound for the number of kids recorded in the world values survey is 8, this would skew the variance ratio in favor of women
+- Men are older on average when they have their first child. I set a cutoff age of 33 since at that age the regression between age and number of children was no longer significant
+- Sample size (especially in less developed countries), this would tend to increase the error of the variance ratio
+- According to Sarah Hrdy in _Mother Nature_, the children of men in polygamous marriage are more likely to die, I would expect them to be less likely to be recorded. This would skew the variance ratio in favor of women 
+
+![Map of Reproductive Variance](http://imgur.com/HWt5M.png)
+
 Requirements
 ---------------
-1. Creata two directories names "map" and "data"
+1. Create two directories names "map" and "data"
 
 2.  You'll need to download 3 files from the [world values survey website](http://www.wvsevsdb.com/wvs/WVSData.jsp?Idioma=I) and place them in the "data" directory. Make sure the files you download are in __STATA__ format
 

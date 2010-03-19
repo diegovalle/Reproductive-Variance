@@ -1,2 +1,6 @@
+*Thumbs.db
+*.*~
+*.Rhistory
 data/*
 map/*
+output/*.png

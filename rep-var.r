@@ -135,7 +135,7 @@ ggplot(world.map, aes(long, lat)) +
                               midpoint = 1) +
          opts(panel.background = theme_rect(fill = "#e0f2ff",
                                             colour = "white")) +
-         opts(title = "Male / Female reproductive variance (alpha males = blue, alpha females = red, white = equal)")
+         opts(title = "Male / Female reproductive variance (alpha females = red, alpha males = blue, white = equal)")
 dev.print(png, file="output/rep-var-map.png", height=550, width=960)
 
 #What are the errors? Bootstraping to the rescue!
