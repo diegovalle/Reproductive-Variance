@@ -11,6 +11,7 @@ library(maps)
 library(maptools)
 library(plotrix)
 library(RColorBrewer)
+gpclibPermit()
 
 cleanFile <- function(name) {
   wvs <- read.csv(name)
@@ -44,8 +45,8 @@ wvs <- rbind(wvs2000, wvs2005, wvs2005b)
 rm(wvs2000, wvs2005, wvs2005b)
 
 #The upperbound for the number of kids is 8, it seems to me
-#reasonable to assume men on average have more kids because of
-#biological constraints
+#reasonable to assume at this level men on average have more kids
+#because of biological constraints
 #Now if I only knew where to get data to estimate the difference
 #wvs[wvs$sex == "male" & wvs$numchilds == 8,]$numchilds <- 8.2
 
@@ -57,7 +58,9 @@ meanVar <- function(df, old = 0){
   createData <- function(df) {
       m <- subset(df, sex == "male")
       f <- subset(df, sex == "female")
-      data.frame(var.ratio = var(m$numchilds) / var(f$numchilds),
+      coe.var.m <- sd(m$numchilds) / mean(m$numchilds)
+      coe.var.f <- sd(f$numchilds) / mean(m$numchilds)
+      data.frame(var.ratio = coe.var.m / coe.var.f,
                  meanchld.dif = mean(m$numchilds) - mean(f$numchilds),
                  meanage.dif = mean(m$age) - mean(f$age),
                  n = nrow(df))
@@ -68,6 +71,11 @@ meanVar <- function(df, old = 0){
 #You must be this old to enter the chart
 old <- 33
 alpha <- meanVar(wvs, old)
+
+alpha$country <- reorder(alpha$country, alpha$meanchld.dif)
+ggplot(alpha, aes(meanchld.dif, country)) +
+    geom_point() +
+    geom_vline(xintercept = 0, linetype = 2, color = "gray")
 #Check to see if the average of the country and the differences in number of children between men and women are significant
 summary(lm(var.ratio ~  meanage.dif + meanchld.dif , data = alpha))
 
@@ -80,6 +88,23 @@ densityChilds <- function(df, name) {
      geom_density(alpha = .5, adjust = 3) + xlab("Number of Children")+
      opts(title = name)
 }
+
+areaChilds <- function(df, name) {
+  ggplot(df, aes(numchilds, per, group = sex, fill = sex)) +
+     geom_area(alpha = .5, position = "identity") +
+     xlab("Number of Children") +
+     geom_line(aes(group = sex, color = sex), alpha = .5) +
+     opts(title = name) +
+     scale_y_continuous(formatter = "percent")
+}
+
+
+wvs.per <- ddply(wvs, .(country, numchilds, sex),
+             function(df) nrow(df))
+wvs.per <- ddply(wvs.per, .(country, sex), transform, tot = sum(V1))
+wvs.per$per <- with(wvs.per, V1 / tot)
+areaChilds(subset(wvs.per, country == "usa"), "USA")
+areaChilds(subset(wvs.per, country == "canada"), "Canada")
 
 #the mean ratio doesn't take into account population, but it doesn't
 #significantly affect the result
